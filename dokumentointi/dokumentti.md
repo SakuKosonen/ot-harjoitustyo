@@ -1,9 +1,9 @@
 **Sakun hallintaSovellus**
 
-* Sovellus johon voidaan lisätä kyseisellä hetkellä käytäviä kursseja ja jokaiseen kurssiin voi
- lisätä deadlinejä. Sovelluksen tarkoitus olisi siis että olisi helppo navigoida kaikkia kurssien ja 
-elämän deadlinejä yhdestä paikasta käsin
-* - Aloitusruutu jolla kirjaudutaan elämänhallinta käyttäjälle
+* Sakun oma ToDo sovellus jossa ollaan kiinnostuneita deadlineistä. Helppo tapa navigoida kaikkia omia 
+deadlinejä.
+*
+- Aloitusruutu jolla kirjaudutaan elämänhallinta käyttäjälle
 - Ruutu jossa voidaan lisätä kursseja tai katsoa meneillään olevia kursseja
 - Ruutu jossa voi katsella deadlinejä kyseisestä kurssista ja nähdä niiden etäisyys tunteina
 - Deadlinejen lisääminen, poisto tai tehdyksi merkkaaminen
