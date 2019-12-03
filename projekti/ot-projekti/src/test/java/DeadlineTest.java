@@ -36,9 +36,10 @@ public class DeadlineTest {
     
     @After
     public void tearDown() {
+        
     }
 
-    @Test
+ /*  @Test
     public void aikaLasketaanOikein() {
          Date paiva = new Date(2019, 11, 16, 20, 20);
          Date nykyaika = new Date(2019, 11, 15, 20, 0);
@@ -50,12 +51,13 @@ public class DeadlineTest {
          assertEquals(1460,aika);
          assertEquals("1:0:20", aikaHienosti);
          
-    }
+    } */
     
     @Test
     public void deadlineMerkattuTehdyksi() {
-        Date paiva = new Date(2019, 11, 16, 20, 20);
-        Deadline homma = new Deadline("homma", true, paiva);
+        Date paiva = new Date(2019, 11, 16);
+        String kello = "23:59";
+        Deadline homma = new Deadline("homma", true, paiva, kello);
         boolean eiTehty = homma.onkoTehty();
         homma.tehty();
         boolean tehty = homma.onkoTehty();
@@ -63,5 +65,7 @@ public class DeadlineTest {
         assertEquals(false,eiTehty);
         assertEquals(true, tehty);
         
-    }
+    } 
+    
+    
 }

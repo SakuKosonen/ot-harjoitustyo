@@ -13,28 +13,40 @@ import java.util.concurrent.TimeUnit;
  * @author Saku
  */
 public class Deadline {
-
+    
+    int id;
     String nimi;
     Date paivamaara;
     boolean pakollisuus;
     boolean tehty;
+    String aika;
 
-    public Deadline(String nimi, boolean pakollinen, int vuosi, int kuukaus, int paiva, int tunnit, int minuutit) {
-        this.nimi = nimi;
-        this.paivamaara = new Date(vuosi, kuukaus, paiva, tunnit, minuutit);
-        this.pakollisuus = pakollinen;
-        this.tehty = false;
-
-    }
-    
-    public Deadline(String nimi, boolean pakollinen, Date paivamaara) {
+    public Deadline(String nimi, boolean pakollinen, Date paivamaara, String aika) {
         this.nimi = nimi;
         this.paivamaara = paivamaara;
         this.pakollisuus = pakollinen;
         this.tehty = false;
+        this.aika = aika;
 
     }
+    
+    public Deadline(String nimi, boolean pakollinen, Date paivamaara, int tunnit, int minuutit) {
+        this.nimi = nimi;
+        this.paivamaara = paivamaara;
+        this.pakollisuus = pakollinen;
+        this.tehty = false;
+        this.aika = tunnit + ":" + minuutit;
 
+    }
+    
+    public int getId() {
+        return id;
+    }
+    
+    public void setId(int jotain) {
+        id = jotain;
+    }
+    
     public Date getDate() {
         return this.paivamaara;
     }
@@ -44,22 +56,17 @@ public class Deadline {
     }
 
     public boolean onkoTehty() {
-        if (tehty == true) {
-            return true;
-        }
-        return false;
+        
+        return tehty;
     }
 
     public boolean onkoPakollinen() {
-        if (pakollisuus == true) {
-            return true;
-        }
-        return false;
+        
+        return pakollisuus;
     }
 
     public void tehty() {
         tehty = true;
-
     }
 
     public int aikaMinuutteina(Date nykyaika) {
@@ -74,6 +81,10 @@ public class Deadline {
         
         return aika / 24 / 60 + ":" + aika / 60 % 24 + ':' + aika % 60;
 
+    }
+    
+    public String getAika() {
+        return aika;
     }
     
 

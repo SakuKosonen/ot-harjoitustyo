@@ -12,7 +12,8 @@ import java.util.ArrayList;
  * @author Saku
  */
 public class Kurssi {
-
+    
+    int id;
     String nimi;
     ArrayList<Deadline> deadlinet;
 
@@ -23,6 +24,14 @@ public class Kurssi {
 
     public String getNimi() {
         return this.nimi;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+     public int getId() {
+        return id;
     }
     
     public void lisaaDeadline(Deadline homma) {
