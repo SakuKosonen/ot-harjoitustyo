@@ -65,20 +65,19 @@ public class KurssiDao implements Dao<Kurssi, Integer> {
     @Override
     public List<Kurssi> findAll() throws SQLException {
         List<Kurssi> kurssit = new ArrayList<>();
-        Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Kurssit");
-        ResultSet rs = stmt.executeQuery();
+        try (Connection connection = database.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Kurssit");
+            ResultSet rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            Kurssi kurssi = new Kurssi(rs.getString("nimi"));
-
-            kurssit.add(kurssi);
+            while (rs.next()) {
+                Kurssi kurssi = new Kurssi(rs.getString("nimi"));
+                //kurssi.setId(rs.getInt("KurssiId"));
+                kurssit.add(kurssi);
+             }
+            rs.close();
+            stmt.close();
         }
-
-        stmt.close();
-        rs.close();
-
-        connection.close();
+                
         return kurssit;
     }
 
@@ -96,4 +95,70 @@ public class KurssiDao implements Dao<Kurssi, Integer> {
 
     }
 
+    public Kurssi findOneNimella(String key) throws SQLException {
+
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Kurssit WHERE nimi = ?");
+        stmt.setString(1, key);
+
+        ResultSet rs = stmt.executeQuery();
+        boolean hasOne = rs.next();
+        if (!hasOne) {
+            return null;
+        }
+
+        Kurssi kurssi = new Kurssi(rs.getString("nimi"));
+
+        stmt.close();
+        rs.close();
+
+        conn.close();
+
+        return kurssi;
+
+    }
+
+    public void deleteAll() throws SQLException {
+        Connection conn = this.database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("DELETE * FROM Kurssit");
+
+        stmt.executeUpdate();
+        stmt.close();
+        conn.close();
+    }
+
+   
+    public void deleteNimella(String key) throws SQLException {
+        Connection conn = this.database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM Kurssit WHERE nimi = ?");
+
+        stmt.setString(1, key);
+        stmt.executeUpdate();
+        stmt.close();
+        conn.close();
+    }
+
+     public int findOneIntNimella(String key) throws SQLException {
+
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Kurssit WHERE nimi = ?");
+        stmt.setString(1, key);
+
+        ResultSet rs = stmt.executeQuery();
+        boolean hasOne = rs.next();
+        if (!hasOne) {
+            return 0;
+        }
+
+        int id = rs.getInt("Id");
+
+        stmt.close();
+        rs.close();
+
+        conn.close();
+
+        return id;
+
+    }
+    
 }

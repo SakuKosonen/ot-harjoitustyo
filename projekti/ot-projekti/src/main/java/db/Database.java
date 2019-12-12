@@ -17,9 +17,9 @@ public class Database {
 
     private String database;
 
-    public Database(String database) {
+    public Database(String database) throws ClassNotFoundException {
         this.database = database;
-        this.init();
+        //this.init();
     }
 
     /**
@@ -28,18 +28,24 @@ public class Database {
      * @return Connection
      * @throws SQLException
      */
-    public Connection getConnection() throws SQLException {
-        String dbUrl = System.getenv("JDBC_DATABASE_URL");
-        if (dbUrl != null && dbUrl.length() > 0) {
-            return DriverManager.getConnection(dbUrl);
+    /* public Connection getConnection() throws SQLException {
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+
         }
+        return DriverManager.getConnection(database);
+    }*/
+    public Connection getConnection() throws SQLException {
+        //String dbUrl = System.getenv("org.sqlite.JDBC");
+
         return DriverManager.getConnection(database);
     }
 
     /**
      * Makes new database if old one doesn't exist.
      */
-    public void init() {
+   /* public void init() {
         List<String> commands = this.sqliteCommands();
 
         // "try with resources" close the resources in the end
@@ -55,14 +61,12 @@ public class Database {
             // if db is initialized -> failed to run commands and stop
             System.out.println("Error >> " + t.getMessage());
         }
-    }
+    } */
 
-    /**
-     * Creates table if making new database;
+    /* * Creates table if making new database;
      *
-     * @return List that goes to database.
-     */
-    private List<String> sqliteCommands() {
+     * @return List that goes to database. */
+   /* private List<String> sqliteCommands() {
         ArrayList<String> list = new ArrayList<>();
 
         list.add("CREATE TABLE Kurssit ("
@@ -79,6 +83,5 @@ public class Database {
                 + "aika String);");
 
         return list;
-    }
-
+    } */
 }

@@ -5,11 +5,13 @@
  */
 package projekti;
 
-
 import db.Database;
+import db.DeadlineDao;
 import db.KurssiDao;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -34,7 +36,7 @@ public class Main extends Application {
         Button otNappi = new Button("ot");
         Button takaisinKurssi = new Button("Takaisin");
         Button lisaaKurssi = new Button("Lisää kurssi");
-        Button kurssitNappi = new Button("Kurssit");
+        Button kurssitNappi = new Button("Kurssit");        
 
         BorderPane kurssitPane = new BorderPane();
         VBox kurssitVasenBox = new VBox();
@@ -60,10 +62,12 @@ public class Main extends Application {
 
         ikkuna.setScene(nakyma);
         ikkuna.show();
+        
+        
 
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
         /*   Date paiva = new Date(2019, 11, 16, 20, 20);
          Date nykyaika = new Date(2019, 11, 15, 20, 0);
          Deadline homma = new Deadline("homma", true, paiva);
@@ -71,19 +75,52 @@ public class Main extends Application {
          System.out.println(aika);
          System.out.println(homma.aikaHienosti(nykyaika));*/
         //launch(Main.class);
+        
+        Database pase = new Database("jdbc:sqlite:Tietokanta.db");
 
-        Database pase = new Database("jdbc:sqlite:HighScores.db");
-
-        pase.init();
+        
         
         KurssiDao kurssit = new KurssiDao(pase);
         
-        Kurssi kurssi = new Kurssi("testiKurssi");
-        kurssit.save(kurssi);
+       // Kurssi kurssi = new Kurssi("testiKurssi1234");
+       // kurssit.save(kurssi);
         
-        System.out.println(kurssit.findAll());
+        List<Kurssi> lista = kurssit.findAll();
         
-
+        
+        
+        for (int i = 0; i < lista.size(); i++) {
+            System.out.println(lista.get(i).getNimi());
+        }
+        
+        DeadlineDao deadlinet = new DeadlineDao(pase);
+        
+        Date paivamaara = new Date(11122019);
+        
+        Deadline deadline = new Deadline("testiDeadline", true, paivamaara, "20:30");
+        
+        deadlinet.saveJee(deadline, "testiKurssi1234");
+        //int jonne = kurssit.findOneIntNimella("testiKurssi1234");
+        System.out.println("----");
+        
+        List<Deadline> lista2 = deadlinet.findAll();
+        
+        for (int i = 0; i < lista2.size(); i++) {
+            System.out.println(lista2.get(i).getNimi());
+        }
+        
+        
+        //System.out.println(jonne);
+        
+        
+        
+        //Kurssi kurssi123 = kurssit.findOneNimella("testiKurssi22");
+       
+        //System.out.println(kurssi123.getNimi());
+        
+        //kurssit.deleteNimella("testiKurssi1234");
+        
+        
     }
 
 }

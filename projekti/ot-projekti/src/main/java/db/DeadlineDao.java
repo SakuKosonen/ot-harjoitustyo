@@ -79,7 +79,6 @@ public class DeadlineDao implements Dao<Deadline, Integer> {
         return deadlinet;
     }
 
-    @Override
     public void delete(Integer key) throws SQLException {
 
         Connection conn = this.database.getConnection();
@@ -91,19 +90,23 @@ public class DeadlineDao implements Dao<Deadline, Integer> {
         conn.close();
 
     }
-
-    private void save(Deadline deadline, Kurssi kurssi) throws SQLException {
+    
+    
+    public void saveJee(Deadline deadline, String kurssi) throws SQLException {
 
         java.sql.Date jotain = new java.sql.Date(deadline.getDate().getTime());
 
         Connection conn = database.getConnection();
+        //PreparedStatement stmt = conn.prepareStatement("INSERT INTO Deadlinet"
+         //       + " (FOREIGN KEY, nimi, pakollisuus, tehty, paivamaara, aika)"
+        //        + " VALUES ( ?, ?, ?, ?, ?, ?)");
+        
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO Deadlinet"
-                + " (FOREING KEY, nimi, pakollisuus, tehty, paivamaara, aika)"
-                + " VALUES ( ?, ?, ?, ?, ?, ?)");
+        + "(KurssiId, nimi, pakollisuus, tehty, paivamaara, aika)"
+            + " VALUES ((SELECT KurssiId from Kurssit where nimi = '?'), ?, ?, ?, ?, '?')");
         
-        
-        
-        stmt.setInt(1, kurssi.getId());
+        //stmt.setInt(1, kurssi.getId());
+        stmt.setString(1, kurssi);
         stmt.setString(2, deadline.getNimi());
         stmt.setBoolean(3, deadline.onkoPakollinen());
         stmt.setBoolean(4, deadline.onkoTehty());
@@ -112,6 +115,8 @@ public class DeadlineDao implements Dao<Deadline, Integer> {
 
         stmt.executeUpdate();
         stmt.close();
+        
+        conn.close();
 
     }
 

@@ -42,7 +42,7 @@ public class KurssiTest {
     }
     
     @Test
-    public void deadlineMerkattuTehdyksi() {
+    public void kurssiToimii() {
         Kurssi kurssi = new Kurssi("testikurssi");
         Date paiva = new Date(2019, 11, 16);
         String kello = "23:59";
