@@ -254,7 +254,7 @@ public class KurssiNappi {
                 try {
                     deadlineLista2 = dDao.findAllKurssista(nimi);
                 } catch (SQLException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Sovellus.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 for (int i = 0; i < deadlineLista2.size(); i++) {
