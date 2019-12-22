@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projekti.Deadline;
+import domain.Deadline;
 
 /**
  *
@@ -39,10 +39,10 @@ public class DeadlineTest {
         
     }
 
- /*  @Test
+ /* @Test
     public void aikaLasketaanOikein() {
-         Date paiva = new Date(2019, 11, 16, 20, 20);
-         Date nykyaika = new Date(2019, 11, 15, 20, 0);
+         Date nyt = new Date();
+         
          Deadline homma = new Deadline("homma", true, paiva);
          int aika = homma.aikaMinuutteina(nykyaika);
          
@@ -55,9 +55,9 @@ public class DeadlineTest {
     
     @Test
     public void deadlineMerkattuTehdyksi() {
-        Date paiva = new Date(2019, 11, 16);
+        String paiva = "22.12.2019";
         String kello = "23:59";
-        Deadline homma = new Deadline("homma", true, paiva, kello);
+        Deadline homma = new Deadline("homma", true, paiva, kello, "kurssi");
         boolean eiTehty = homma.onkoTehty();
         homma.tehty();
         boolean tehty = homma.onkoTehty();

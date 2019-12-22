@@ -45,7 +45,7 @@ public class Database {
     /**
      * Makes new database if old one doesn't exist.
      */
-   /* public void init() {
+    public void init() {
         List<String> commands = this.sqliteCommands();
 
         // "try with resources" close the resources in the end
@@ -61,15 +61,15 @@ public class Database {
             // if db is initialized -> failed to run commands and stop
             System.out.println("Error >> " + t.getMessage());
         }
-    } */
+    }
 
     /* * Creates table if making new database;
      *
      * @return List that goes to database. */
-   /* private List<String> sqliteCommands() {
+    private List<String> sqliteCommands() {
         ArrayList<String> list = new ArrayList<>();
 
-        list.add("CREATE TABLE Kurssit ("
+        /* list.add("CREATE TABLE Kurssit ("
                 + "id integer PRIMARY KEY, "
                 + "nimi varchar(50));");
 
@@ -80,8 +80,10 @@ public class Database {
                 + "pakollisuus Boolean, "
                 + "tehty boolean, "
                 + "paivamaara Date), "
-                + "aika String);");
-
+                + "aika String);"); */
+        list.add("CREATE TABLE Kurssit (KurssiId Integer PRIMARY KEY, nimi varchar(50));\n"
+                + "INSERT INTO Kurssit VALUES(1,'testi');\n"
+                + "CREATE TABLE Deadlinet (DeadlineId integer PRIMARY KEY, KurssiId integer, nimi varchar(50), pakollisuus boolean, tehty boolean, paivamaara varchar(20), aika varchar(5), kurssi varchar(50), FOREIGN KEY (KurssiId) REFERENCES Kurssit(KurssiId));");
         return list;
-    } */
+    }
 }
